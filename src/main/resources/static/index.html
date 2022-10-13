@@ -11,6 +11,10 @@
                 font-family: 'Courier New', Courier, monospace;
                 font-size: small;
             }
+
+            body {
+                background-color: #336699;
+            }
         </style>
     </head>
     <body>
@@ -19,7 +23,7 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <h1>Módulo Fiscal Eletronico SAT/MFE</h1>
+                    <h1 style="color: #fff">Módulo Fiscal Eletronico SAT/MFE</h1>
                     <div class="alert alert-info" role="alert">
                         <strong>Aten&ccedil;&atilde;o!</strong> Para que a API possa carregar as DLLs do m&oacute;dulo fiscal, a vers&atilde;o do java instalado na m&aacute;quina que executa a API precisa ser 32bit.
                     </div>
@@ -30,138 +34,154 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8 alert alert-danger" role="alert" id="msgInfo"></div>
                 <div class="col-md-8" id="info">
-                    <table class="table">
-                        <tr>
-                            <td><b>Número de Série</b></td>
-                            <td><span id="nserie"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Tipo de LAN</b></td>
-                            <td><span id="tipoLan"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Endereço IP da Lan</b></td>
-                            <td><span id="lanIP"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Endereço MAC</b></td>
-                            <td><span id="lanMac"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Máscara de sub-rede</b></td>
-                            <td><span id="lanMasc"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Endereço gateway</b></td>
-                            <td><span id="lanGw"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Endereço DNS1</b></td>
-                            <td><span id="lanDns1"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Endereço DNS2</b></td>
-                            <td><span id="lanDns2"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Status da rede</b></td>
-                            <td><span id="statusLan"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Nível da bateria</b></td>
-                            <td><span id="nivelBateria"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Memória de Trabalho Total</b></td>
-                            <td><span id="mtTotal"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Memória de Trabalho Usada</b></td>
-                            <td><span id="mtUsada"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Data e hora atual</b></td>
-                            <td><span id="dhAtual"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Versão do Software</b></td>
-                            <td><span id="verSb"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Versão do Leiaute da tabela de informações</b></td>
-                            <td><span id="verLayout"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Número sequencial do Último CF-e-SAT Emitido</b></td>
-                            <td><span id="ultimoCFeSat"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Número sequencial do primeiro CF-e SAT</b></td>
-                            <td><span id="listaInicial"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Número sequencial do último CF-e-SAT</b></td>
-                            <td><span id="listaFinal"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Data e hora da última transmissão de CF-e SAT para SEFAZ</b></td>
-                            <td><span id="dhCfe"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Última comunicação com a SEFAZ</b></td>
-                            <td><span id="dhUltima"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Data de emissão do certificado instalado</b></td>
-                            <td><span id="certEmissao"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Data de vencimento do certificado instalado</b></td>
-                            <td><span id="certVencimento"></span></td>
-                        </tr>
-                        <tr>
-                            <td><b>Estado de Operação do SAT</b></td>
-                            <td><span id="estadoOperacao"></span></td>
-                        </tr>
-                    </table>
-                    <div class="position-relative">
-                        <button id="btAtualizar" class="btn btn-secondary">Atualizar</button>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Informações do Módulo</h5>
+                            <table class="table">
+                                <tr>
+                                    <td><b>Número de Série</b></td>
+                                    <td><span id="nserie"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Tipo de LAN</b></td>
+                                    <td><span id="tipoLan"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Endereço IP da Lan</b></td>
+                                    <td><span id="lanIP"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Endereço MAC</b></td>
+                                    <td><span id="lanMac"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Máscara de sub-rede</b></td>
+                                    <td><span id="lanMasc"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Endereço gateway</b></td>
+                                    <td><span id="lanGw"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Endereço DNS1</b></td>
+                                    <td><span id="lanDns1"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Endereço DNS2</b></td>
+                                    <td><span id="lanDns2"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Status da rede</b></td>
+                                    <td><span id="statusLan"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Nível da bateria</b></td>
+                                    <td><span id="nivelBateria"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Memória de Trabalho Total</b></td>
+                                    <td><span id="mtTotal"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Memória de Trabalho Usada</b></td>
+                                    <td><span id="mtUsada"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Data e hora atual</b></td>
+                                    <td><span id="dhAtual"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Versão do Software</b></td>
+                                    <td><span id="verSb"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Versão do Leiaute da tabela de informações</b></td>
+                                    <td><span id="verLayout"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Número sequencial do Último CF-e-SAT Emitido</b></td>
+                                    <td><span id="ultimoCFeSat"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Número sequencial do primeiro CF-e SAT</b></td>
+                                    <td><span id="listaInicial"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Número sequencial do último CF-e-SAT</b></td>
+                                    <td><span id="listaFinal"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Data e hora da última transmissão de CF-e SAT para SEFAZ</b></td>
+                                    <td><span id="dhCfe"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Última comunicação com a SEFAZ</b></td>
+                                    <td><span id="dhUltima"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Data de emissão do certificado instalado</b></td>
+                                    <td><span id="certEmissao"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Data de vencimento do certificado instalado</b></td>
+                                    <td><span id="certVencimento"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Estado de Operação do SAT</b></td>
+                                    <td><span id="estadoOperacao"></span></td>
+                                </tr>
+                            </table>
+                            <div class="position-relative">
+                                <button id="btAtualizar" class="btn btn-secondary">Atualizar</button>
+                            </div>
+                        </div>
                     </div>
 
-                    <br/><br/>
-                    <h2>Logs</h2>
-                    <textarea wrap="off" class="form-control logs" id="logs" rows = "10"></textarea>
                     <br/>
-                    <div class="position-relative">
-                        <button id="btExtrairLogs" class="btn btn-secondary">Obter Logs</button>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Log</h5>
+                            <textarea wrap="off" class="form-control logs" id="logs" rows = "10"></textarea>
+                            <br/>
+                            <div class="position-relative">
+                                <button id="btExtrairLogs" class="btn btn-secondary">Obter Logs</button>
+                            </div>
+                        </div>
                     </div>
+
+                    
 
                 </div>
                 <div class="col-md-2"></div>
             </div>
-            <br /><br />
+            <br />
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <div class="alert alert-danger" role="alert" id="msg"></div>
-                    <input type="hidden" id="id" name="id" />
-                    <div class="row mb-3">
-                        <label for="codigoAtivacao" class="col-sm-3 col-form-label">Codigo Ativação</label>
-                        <div class="col-sm-9">
-                            <input type="password" id="codigoAtivacao" class="form-control"/>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Configurações</h5>
+                            <div class="alert alert-danger" role="alert" id="msg"></div>
+                            <input type="hidden" id="id" name="id" />
+                            <div class="form-checkbox">
+                                <input type="checkbox" id="logAtivado"/>
+                                <label for="logAtivado" class="col-sm-3 col-form-label">Log ativado</label>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="codigoAtivacao" class="col-sm-3 col-form-label">Codigo Ativação</label>
+                                <div class="col-sm-9">
+                                    <input type="password" id="codigoAtivacao" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="libsDir" class="col-sm-3 col-form-label">Diretório DLL</label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="libsDir" class="form-control"/>
+                                </div>
+                            </div>
+                            <button id="btSalvar" class="btn btn-primary">Salvar Configura&ccedil;&otilde;es</button>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <label for="libsDir" class="col-sm-3 col-form-label">Diretório DLL</label>
-                        <div class="col-sm-9">
-                            <input type="text" id="libsDir" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="form-checkbox">
-                        <input type="checkbox" id="logAtivado"/>
-                        <label for="logAtivado" class="col-sm-3 col-form-label">Log ativado</label>
-                    </div>
-                    <button id="btSalvar" class="btn btn-primary">Salvar Configura&ccedil;&otilde;es</button>
                 </div>
                 <div class="col-md-2"></div>
             </div>
