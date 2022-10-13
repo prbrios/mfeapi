@@ -3,7 +3,9 @@ package com.github.prbrios.mfeapi.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +26,14 @@ public class MainController {
     @Autowired
     private MainService service;
 
+    @Value("${build.version}")
+    private String versao;
+
+    @GetMapping(value = "versao", produces = {"text/plain"})
+    public ResponseEntity<String> get() {
+        return ResponseEntity.ok(this.versao);
+    }
+    
     @PostMapping(value = "consultar-numero-sessao", consumes = {"application/json"})
     public ResponseEntity<RetornoConsultaNumeroSessaoDTO> consultarSessao(@Valid @RequestBody ConsultaNumeroSessaoDTO consultaNumeroSessaoDTO) {
         return ResponseEntity.ok(this.service.consultarNumeroSessao(consultaNumeroSessaoDTO));
