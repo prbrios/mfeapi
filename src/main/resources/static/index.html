@@ -157,6 +157,10 @@
                             <input type="text" id="libsDir" class="form-control"/>
                         </div>
                     </div>
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="logAtivado"/>
+                        <label for="logAtivado" class="col-sm-3 col-form-label">Log ativado</label>
+                    </div>
                     <button id="btSalvar" class="btn btn-primary">Salvar Configura&ccedil;&otilde;es</button>
                 </div>
                 <div class="col-md-2"></div>
@@ -171,7 +175,7 @@
 
                 // versao inicio
                 $.ajax({
-                    url: 'http://localhost:8080/versao',
+                    url: 'versao',
                     method: 'get',
                     statusCode: {
                         404: function() {
@@ -188,7 +192,7 @@
                 $("#msgInfo").hide()
 
                 $.ajax({
-                    url: 'http://localhost:8080/config',
+                    url: 'config',
                     method: 'get',
                     statusCode: {
                         404: function() {
@@ -199,6 +203,7 @@
                     $("#id").val(data.id)
                     $("#codigoAtivacao").val(data.codigoAtivacao)
                     $("#libsDir").val(data.libsDir)
+                    $("#logAtivado").prop("checked", data.logAtivado);
                 });
 
                 $("#btSalvar").click(function(){
@@ -209,18 +214,20 @@
                     var _id = $("#id").val()
                     var _codigoAtivacao = $("#codigoAtivacao").val()
                     var _lbsDir = $("#libsDir").val()
+                    var _logAtivado = $("#logAtivado").is(":checked")
 
                     if (_id !== "" && _codigoAtivacao !== "" && _lbsDir !== "") {
 
                         $.ajax({
-                            url: 'http://localhost:8080/config',
+                            url: 'config',
                             method: 'post',
                             dataType: 'json',
                             contentType: "application/json; charset=utf-8",
                             data: JSON.stringify({
                                 id: _id,
                                 codigoAtivacao: _codigoAtivacao, 
-                                libsDir: _lbsDir
+                                libsDir: _lbsDir,
+                                logAtivado: _logAtivado
                             }),
                             statusCode: {
                                 200: function() {
@@ -235,6 +242,7 @@
                             $("#id").val(data.id)
                             $("#codigoAtivacao").val(data.codigoAtivacao)
                             $("#libsDir").val(data.libsDir)
+                            $("#logAtivado").prop("checked", data.logAtivado);
                         });
                     } else {
                         $("#msg").html("Todas as informações são necessárias")
@@ -248,7 +256,7 @@
                 function obterStatusOperacional() {
                     $("#btAtualizar").prop("disabled", true)
                     $.ajax({
-                        url: 'http://localhost:8080/consultar-status-operacional',
+                        url: 'consultar-status-operacional',
                         method: 'post',
                         statusCode: {
                             404: function(data) {
@@ -306,7 +314,7 @@
                     textareaa.value = "Aguarde..."
                     $("#btExtrairLogs").prop("disabled", true)
                     $.ajax({
-                        url: 'http://localhost:8080/extrair-logs',
+                        url: 'extrair-logs',
                         method: 'post'
                     }).done(function (data){
                         $("#btExtrairLogs").prop("disabled", false)

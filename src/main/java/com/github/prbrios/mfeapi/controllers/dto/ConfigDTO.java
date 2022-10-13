@@ -19,4 +19,7 @@ public class ConfigDTO {
     @NotEmpty
     private String libsDir;
 
+    @NotNull
+    private Boolean logAtivado;
+
 }

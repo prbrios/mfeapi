@@ -34,6 +34,7 @@ public class ConfigController {
         config.setId(dto.getId());
         config.setCodigoAtivacao(dto.getCodigoAtivacao());
         config.setLibsDir(dto.getLibsDir());
+        config.setLogAtivado(dto.getLogAtivado());
 
         config = this.configRepository.save(config);
         return ResponseEntity.ok(config);

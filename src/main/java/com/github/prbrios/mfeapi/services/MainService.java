@@ -1,6 +1,7 @@
 package com.github.prbrios.mfeapi.services;
 
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,9 @@ import com.github.prbrios.mfeapi.controllers.dto.RetornoExtrairLogsDTO;
 import com.github.prbrios.mfeapi.controllers.exceptions.ConfigNotFoundException;
 import com.github.prbrios.mfeapi.controllers.exceptions.IntegracaoException;
 import com.github.prbrios.mfeapi.entities.Config;
+import com.github.prbrios.mfeapi.entities.Log;
 import com.github.prbrios.mfeapi.repositories.ConfigRepository;
+import com.github.prbrios.mfeapi.repositories.LogRepository;
 
 import br.com.unigex.integrador.mfe.IntegradorMFEDireto;
 
@@ -27,6 +30,9 @@ public class MainService {
 
     @Autowired
     private ConfigRepository configRepository;
+
+    @Autowired
+    private LogRepository logRepository;
 
     public RetornoConsultaNumeroSessaoDTO consultarNumeroSessao(ConsultaNumeroSessaoDTO obj) {
         Config config = this.getConfig();
@@ -58,6 +64,16 @@ public class MainService {
 
     public RetornoEnvioDadosVendaDTO enviarDadosVenda(EnvioDadosVendaDTO obj) {
         Config config = this.getConfig();
+
+        boolean isLogAtivado = config.isLogAtivado();
+        Log log = new Log();
+        if (isLogAtivado) {
+            log.setDataEnvio(LocalDateTime.now());
+            log.setNumeroSessao(obj.getNumeroSessao());
+            log.setXmlEnvio(obj.getDadosVenda());
+            log = this.logRepository.save(log);
+        }
+
         IntegradorMFEDireto integrador = new IntegradorMFEDireto();
         try {
             String retornoModulo = integrador.enviarDadosVenda(obj.getNumeroSessao(), config.getCodigoAtivacao(), obj.getDadosVenda(), config.getLibsDir());
@@ -78,6 +94,12 @@ public class MainService {
             retorno.setAssinaturaQRCODE(retornoModuloArr.length >= 12 ? retornoModuloArr[11] : null);
             retorno.setRetornoMFE(retornoModulo);
             
+            if (isLogAtivado && log.getId() != null) {
+                log.setDataRetorno(LocalDateTime.now());
+                log.setRetornoModulo(retornoModulo);
+                this.logRepository.save(log);
+            }
+
             return retorno;
         } catch (UnsupportedEncodingException e) {
             throw new IntegracaoException();
@@ -86,6 +108,16 @@ public class MainService {
 
     public RetornoCancelaUltimaVendaDTO cancelarUltimaVenda(CancelaUltimaVendaDTO obj) {
         Config config = this.getConfig();
+
+        boolean isLogAtivado = config.isLogAtivado();
+        Log log = new Log();
+        if (isLogAtivado) {
+            log.setDataEnvio(LocalDateTime.now());
+            log.setNumeroSessao(obj.getNumeroSessao());
+            log.setXmlEnvio(obj.getDadosCancelamento());
+            log = this.logRepository.save(log);
+        }
+
         IntegradorMFEDireto integrador = new IntegradorMFEDireto();
         try {
             String retornoModulo = integrador.cancelarUltimaVenda(obj.getNumeroSessao(), config.getCodigoAtivacao(), obj.getChave(), obj.getDadosCancelamento(), config.getLibsDir());
@@ -106,6 +138,12 @@ public class MainService {
             retorno.setAssinaturaQRCODE(retornoModuloArr.length >= 12 ? retornoModuloArr[11] : null);
             retorno.setRetornoMFE(retornoModulo);
             
+            if (isLogAtivado && log.getId() != null) {
+                log.setDataRetorno(LocalDateTime.now());
+                log.setRetornoModulo(retornoModulo);
+                this.logRepository.save(log);
+            }
+
             return retorno;
 
         } catch (UnsupportedEncodingException e) {

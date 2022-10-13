@@ -31,4 +31,7 @@ public class Config {
     @Column(name = "codigoativacao")
     private String codigoAtivacao;
 
+    @Column(name = "logativado")
+    private boolean logAtivado;
+
 }
