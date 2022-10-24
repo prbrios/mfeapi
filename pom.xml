@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.github.prbrios</groupId>
 	<artifactId>mfeapi</artifactId>
-	<version>20221014</version>
+	<version>20221024</version>
 	<name>mfeapi</name>
 	<description>API for integration with the MFE (electronic fiscal module)</description>
 	<properties>

@@ -15,6 +15,13 @@
             body {
                 background-color: #336699;
             }
+
+            #javainfo {
+                text-align: right;
+                font-size: 12px;
+                color: #fff;
+                font-weight: bold;
+            }
         </style>
     </head>
     <body>
@@ -24,6 +31,7 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <h1 style="color: #fff">Módulo Fiscal Eletronico SAT/MFE</h1>
+                    <div id="javainfo"></div>
                     <div class="alert alert-info" role="alert">
                         <strong>Aten&ccedil;&atilde;o!</strong> Para que a API possa carregar as DLLs do m&oacute;dulo fiscal, a vers&atilde;o do java instalado na m&aacute;quina que executa a API precisa ser 32bit.
                     </div>
@@ -206,6 +214,20 @@
                     $(document).attr('title', 'SAT/MFE API - v' + data);
                 });
                 // versao fim
+
+                // info inicio
+                $.ajax({
+                    url: 'info',
+                    method: 'get',
+                    statusCode: {
+                        404: function() {
+                            alert( "page not found" );
+                        }
+                    }
+                }).done(function (data){
+                    $("#javainfo").html('Java ' + data.javaVersion + ' (' + data.sunArchDataModel + 'bit)');
+                });
+                // info fim
 
                 $("#msg").hide()
                 $("#info").hide()

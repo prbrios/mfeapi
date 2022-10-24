@@ -77,6 +77,10 @@ public class MainService {
         IntegradorMFEDireto integrador = new IntegradorMFEDireto();
         try {
             String retornoModulo = integrador.enviarDadosVenda(obj.getNumeroSessao(), config.getCodigoAtivacao(), obj.getDadosVenda(), config.getLibsDir());
+            if (retornoModulo.equals("")) {
+                throw new Exception();
+            }
+
             String[] retornoModuloArr = retornoModulo.split("[|]");
 
             RetornoEnvioDadosVendaDTO retorno = new RetornoEnvioDadosVendaDTO();
@@ -101,7 +105,7 @@ public class MainService {
             }
 
             return retorno;
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             throw new IntegracaoException();
         }
     }
@@ -121,6 +125,10 @@ public class MainService {
         IntegradorMFEDireto integrador = new IntegradorMFEDireto();
         try {
             String retornoModulo = integrador.cancelarUltimaVenda(obj.getNumeroSessao(), config.getCodigoAtivacao(), obj.getChave(), obj.getDadosCancelamento(), config.getLibsDir());
+            if (retornoModulo.equals("")) {
+                throw new Exception();
+            }
+
             String[] retornoModuloArr = retornoModulo.split("[|]");
 
             RetornoCancelaUltimaVendaDTO retorno = new RetornoCancelaUltimaVendaDTO();
@@ -146,7 +154,7 @@ public class MainService {
 
             return retorno;
 
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             throw new IntegracaoException();
         }
     }

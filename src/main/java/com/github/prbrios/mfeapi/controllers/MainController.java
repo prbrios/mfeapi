@@ -44,6 +44,16 @@ public class MainController {
         return ResponseEntity.ok(this.service.extrairLogs());
     }
 
+    @GetMapping(value = "info", produces = {"application/json"})
+    public ResponseEntity<java.util.Map<String, String>> getOSinfo() {
+        java.util.Map<String, String> ret = new java.util.HashMap<>();
+        ret.put("javaVersion", System.getProperty("java.version"));
+        ret.put("sunArchDataModel", System.getProperty("sun.arch.data.model"));
+        ret.put("osArch", System.getProperty("os.arch"));
+
+        return ResponseEntity.ok(ret);
+    }
+
     @PostMapping(value = "enviar-dados-venda", consumes = {"application/json"})
     public ResponseEntity<RetornoEnvioDadosVendaDTO> enviarDadosVenda(@Valid @RequestBody EnvioDadosVendaDTO envioDadosVenda) {
         return ResponseEntity.ok(this.service.enviarDadosVenda(envioDadosVenda));
